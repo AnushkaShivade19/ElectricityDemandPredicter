@@ -99,12 +99,10 @@ Model Training: Random Forest Regressor
 Evaluation: Metrics like MSE, R²
 
 Deployment: Flask API for real-time use
-
+```
 💻 Installation
 Step-by-Step Setup
-bash
-Copy
-Edit
+```
 # Clone the repository
 git clone https://github.com/yourusername/power-demand-prediction.git
 cd power-demand-prediction
@@ -124,7 +122,7 @@ pip install -r requirements.txt
 # Run the Flask app
 python app.py
 Visit: http://127.0.0.1:5000/
-
+```
 🎯 Usage
 Input:
 Timestamp (Month, Day, Hour)
@@ -135,8 +133,6 @@ Region
 
 Output:
 Predicted Power Demand
-
-Resource Allocation Suggestions
 
 #🚀 Future Enhancements
 🌐 Real-time data integration
