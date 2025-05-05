@@ -1,120 +1,110 @@
-🌍 Power Demand Prediction for Disaster Management ⚡
-🌟 Overview
-The Power Demand Prediction project forecasts electricity demand in disaster-prone regions (floods, earthquakes, storms) using machine learning. It enables:
+# 🌍 Power Demand Prediction for Disaster Management ⚡
 
-📊 Smart energy planning
+## 🌟 Overview  
+The **Power Demand Prediction** project forecasts electricity demand in disaster-prone regions (floods, earthquakes, storms) using **machine learning**. It enables:
 
-⚡ Grid load management
+- 📊 Smart energy planning  
+- ⚡ Grid load management  
+- 🚑 Priority power allocation during emergencies  
 
-🚑 Priority power allocation during emergencies
+> This system becomes essential for **real-time disaster response**, ensuring swift recovery and continuity of critical services.
 
-This system becomes essential for real-time disaster response, ensuring swift recovery and continuity of critical services.
+---
 
-🧠 Key Features
-📈 Accurate Forecasting
-⏰ Time of day (hour, day, month)
+## 🧠 Key Features
 
-🌡️ Weather data (temperature, humidity, pressure)
+### 📈 Accurate Forecasting
+- ⏰ Time of day (hour, day, month)  
+- 🌡️ Weather data (temperature, humidity, pressure)  
+- 📅 Holiday/event impact  
+- 🌀 Seasonal patterns  
 
-📅 Holiday/event impact
+### 🚨 Disaster Recovery Aid  
+- Predicts power needs **during/after disasters**  
+- Prioritizes hospitals, shelters & emergency services  
 
-🌀 Seasonal patterns
+### 💡 Efficient Load Balancing  
+- Anticipates high-demand areas  
+- Reduces strain on the power grid  
 
-🚨 Disaster Recovery Aid
-Predicts power needs during/after disasters
+### 🔌 Smart Grid & IoT Ready  
+- Real-time monitoring via IoT sensors  
+- Supports **dynamic energy routing**
 
-Prioritizes hospitals, shelters & emergency services
+### 🔮 Scenario Simulation  
+- Plans for worst-case grid failures  
+- Identifies weak spots using historical data  
 
-💡 Efficient Load Balancing
-Anticipates high-demand areas
+### 📊 Management Dashboards  
+- Visual insights & predictions  
+- 🔔 Grid issue alerts
 
-Reduces strain on the power grid
+---
 
-🔌 Smart Grid & IoT Ready
-Real-time monitoring via IoT sensors
+## 📊 Dataset  
 
-Supports dynamic energy routing
+🗂️ **Delhi 5-Minute Electricity Demand (2016–2024)**  
+🕐 **Interval**: Every 5 minutes  
+📄 **Records**: 1,000,000+  
 
-🔮 Scenario Simulation
-Plans for worst-case grid failures
+**Features:**
+- `datetime`  
+- `Power demand (kW)`  
+- `Temperature (°C)`  
+- `Humidity (%)`  
+- 🌦️ Environmental conditions  
 
-Identifies weak spots using historical data
+---
 
-📊 Management Dashboards
-Visual insights & predictions
+## 🧠 Model Architecture
 
-🔔 Grid issue alerts
+🧪 **Model Used**: `Random Forest Regressor`  
+🎛️ **Features**:
+- Time-based (hour, day, month)  
+- Weather: Temperature, Humidity  
+- Lagged demand (optional)  
+- Rolling averages (optional)  
 
-📊 Dataset
-🗂️ Delhi 5-Minute Electricity Demand (2016–2024)
-🕐 Interval: Every 5 minutes
-📄 Records: 1,000,000+
+### ⚙️ Preprocessing Steps:
+- `pd.to_datetime()` for timestamps  
+- ⛏️ Feature extraction  
+- 📉 Outlier removal: `winsorize`  
+- ⚖️ Scaling: `RobustScaler`  
+- 🔃 Train/Test Split  
+- 💾 Saved with `joblib`  
 
-Features:
+---
 
-datetime
+## 🤖 Hugging Face Integration
 
-Power demand (kW)
+🧠 We use **Hugging Face Transformers** for:
+- Real-time crisis news interpretation  
+- Weather alert embeddings  
+- Enhanced context for disaster response  
 
-Temperature (°C)
-
-Humidity (%)
-
-🌦️ Environmental conditions
-
-🧠 Model Architecture
-🧪 Model Used: Random Forest Regressor
-🎛️ Features:
-
-Time-based (hour, day, month)
-
-Weather: Temperature, Humidity
-
-Lagged demand (optional)
-
-Rolling averages (optional)
-
-⚙️ Preprocessing Steps:
-pd.to_datetime() for timestamps
-
-⛏️ Feature extraction
-
-📉 Outlier removal: winsorize
-
-⚖️ Scaling: RobustScaler
-
-🔃 Train/Test Split
-
-💾 Saved with joblib
-
-🤖 Hugging Face Integration
-🧠 We use Hugging Face Transformers for:
-
-Real-time crisis news interpretation
-
-Weather alert embeddings
-
-Enhanced context for disaster response
-
-python
-Copy
-Edit
+```python
 from huggingface_hub import hf_hub_download
 
 model_path = hf_hub_download(repo_id="huggingface-model-id", filename="model_file")
-🚀 How It Works
-text
-Copy
-Edit
+```
+
+---
+
+## 🚀 How It Works
+
+```text
 📥 Data Collection: Usage history, weather, time
 🧹 Preprocessing: Clean + feature extraction
 🎯 Training: Random Forest on demand data
 📈 Evaluation: MSE, R² score
 🌐 Deployment: Flask app as REST API
-💻 Installation
-bash
-Copy
-Edit
+```
+
+---
+
+## 💻 Installation
+
+```bash
 # ⬇️ Clone the repository
 git clone https://github.com/yourusername/power-demand-prediction.git
 cd power-demand-prediction
@@ -136,10 +126,13 @@ python app.py
 
 # 🌐 Visit in browser
 http://127.0.0.1:5000/
-🎯 Usage
-text
-Copy
-Edit
+```
+
+---
+
+## 🎯 Usage
+
+```text
 🔢 Input:
   - Timestamp (Month, Day, Hour)
   - Weather: Temperature, Humidity, Pressure
@@ -148,24 +141,26 @@ Edit
 📊 Output:
   - Predicted Power Demand (kW)
   - Resource Allocation Suggestion
-🚀 Future Enhancements
-🌐 Live weather + disaster feeds
+```
 
-🗺️ GIS-based regional predictions
+---
 
-🧠 Switch to LSTM or XGBoost models
+## 🚀 Future Enhancements
 
-📊 Interactive dashboards for real-time tracking
+- 🌐 Live weather + disaster feeds  
+- 🗺️ GIS-based regional predictions  
+- 🧠 Switch to LSTM or XGBoost models  
+- 📊 Interactive dashboards for real-time tracking  
+- 🔍 Anomaly detection for sudden demand spikes  
 
-🔍 Anomaly detection for sudden demand spikes
+---
 
-🏁 Conclusion
-This project empowers disaster response teams by offering:
+## 🏁 Conclusion
 
-🧭 Smarter resource allocation
+This project empowers **disaster response** teams by offering:
 
-⚡ Grid resilience planning
+- 🧭 Smarter resource allocation  
+- ⚡ Grid resilience planning  
+- 🏥 Ensured power supply to critical services  
 
-🏥 Ensured power supply to critical services
-
-Let’s build a future-ready, energy-aware disaster response system 🔋🌪️
+Let’s build a **future-ready**, energy-aware disaster response system 🔋🌪️
