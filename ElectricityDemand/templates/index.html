@@ -1,0 +1,45 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Power Demand Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Power Demand</h1>
+        <form action="/predict" method="post">
+            <label>Datetime:</label>
+            <input type="datetime-local" name="datetime" required><br>
+
+            <label>Temperature (temp):</label>
+            <input type="number" step="any" name="temp" required><br>
+
+            <label>Dew Point (dwpt):</label>
+            <input type="number" step="any" name="dwpt" required><br>
+
+            <label>Relative Humidity (rhum):</label>
+            <input type="number" step="any" name="rhum" required><br>
+
+            <label>Wind Direction (wdir):</label>
+            <input type="number" step="any" name="wdir" required><br>
+
+            <label>Wind Speed (wspd):</label>
+            <input type="number" step="any" name="wspd" required><br>
+
+            <label>Pressure (pres):</label>
+            <input type="number" step="any" name="pres" required><br>
+
+            <label>3-Interval Moving Average (moving_avg_3):</label>
+            <input type="number" step="any" name="moving_avg_3"><br>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction is not none %}
+            <h2>Predicted Power Demand: <span>{{ prediction }} kW</span></h2>
+        {% endif %}
+    </div>
+</body>
+</html>
