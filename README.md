@@ -138,23 +138,22 @@ Predicted Power Demand
 
 Resource Allocation Suggestions
 
-🚀 Future Enhancements
-🔄 Real-time data integration
+## 🚀 Future Enhancements
+- 🌐 **Real**-time data integration  
+- 🗺️ **GIS** & geospatial data **for** region-specific insights  
+- 🧠 **Advanced** models like **XGBoost**, **LSTM**  
+- 📊 **Interactive** dashboards **for** disaster simulations  
 
-🗺️ GIS & geospatial data for region-specific insights
+---
 
-🧠 Advanced models like XGBoost, LSTM
+## 🏁 Conclusion
+This project empowers disaster response by forecasting electricity needs **in** disaster-affected regions.  
+It improves:
 
-📈 Interactive dashboards for disaster simulations
+- 🧭 **Resource** allocation  
+- ⚡ **Power** grid resilience  
+- 🔄 **Continuity** of critical services (_e.g._, hospitals, shelters)  
 
-🏁 Conclusion
-This project empowers disaster response by forecasting electricity needs in disaster-affected regions. It improves:
+**By** combining machine learning, transformers, and smart grid technology, this system supports proactive **and** informed disaster management.
 
-Resource allocation
-
-Power grid resilience
-
-Continuity of critical services (e.g., hospitals, shelters)
-
-By combining machine learning, transformers, and smart grid technology, this system supports proactive and informed disaster management.
 
