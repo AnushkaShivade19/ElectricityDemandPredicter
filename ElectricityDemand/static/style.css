@@ -1,47 +1,95 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background: #f4f6f9;
     padding: 40px;
+    margin: 0;
+    color: #333;
 }
 
 .container {
-    max-width: 500px;
+    max-width: 550px;
     margin: auto;
     background: white;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: translateY(-5px);
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #1e90ff;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
 form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 label {
-    margin-top: 10px;
     font-weight: bold;
+    color: #444;
+    font-size: 1.1em;
 }
 
-input[type=number], input[type=submit] {
-    padding: 10px;
+input[type="number"], input[type="datetime-local"] {
+    padding: 12px;
     margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    color: #555;
+    transition: border-color 0.3s ease;
 }
 
-input[type=submit] {
-    margin-top: 20px;
-    background-color: #007BFF;
+input[type="number"]:focus, input[type="datetime-local"]:focus {
+    border-color: #1e90ff;
+    background-color: #f0faff;
+    outline: none;
+}
+
+input[type="submit"] {
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e90ff;
     color: white;
+    font-size: 1.2em;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
 }
 
-input[type=submit]:hover {
+input[type="submit"]:hover {
+    background-color: #4682b4;
+    transform: translateY(-2px);
+}
+
+input[type="submit"]:active {
     background-color: #0056b3;
+    transform: translateY(1px);
+}
+
+.result {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #32cd32;
+}
+
+.footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 40px;
 }

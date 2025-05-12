@@ -1,45 +1,132 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power Demand Prediction</title>
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e90ff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+            font-size: 1.1em;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="datetime-local"],
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            padding: 12px 20px;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4682b4;
+        }
+
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #32cd32;
+        }
+
+        .emoji {
+            font-size: 2.5em;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 40px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Predict Power Demand</h1>
+        <h1>🔋 Power Demand Prediction ⚡</h1>
         <form action="/predict" method="post">
-            <label>Datetime:</label>
+            <label for="datetime">⏰ Datetime:</label>
             <input type="datetime-local" name="datetime" required><br>
 
-            <label>Temperature (temp):</label>
+            <label for="temp">🌡️ Temperature (temp):</label>
             <input type="number" step="any" name="temp" required><br>
 
-            <label>Dew Point (dwpt):</label>
+            <label for="dwpt">🌬️ Dew Point (dwpt):</label>
             <input type="number" step="any" name="dwpt" required><br>
 
-            <label>Relative Humidity (rhum):</label>
+            <label for="rhum">💧 Relative Humidity (rhum):</label>
             <input type="number" step="any" name="rhum" required><br>
 
-            <label>Wind Direction (wdir):</label>
+            <label for="wdir">🌀 Wind Direction (wdir):</label>
             <input type="number" step="any" name="wdir" required><br>
 
-            <label>Wind Speed (wspd):</label>
+            <label for="wspd">💨 Wind Speed (wspd):</label>
             <input type="number" step="any" name="wspd" required><br>
 
-            <label>Pressure (pres):</label>
+            <label for="pres">🛢️ Pressure (pres):</label>
             <input type="number" step="any" name="pres" required><br>
 
-            <label>3-Interval Moving Average (moving_avg_3):</label>
-            <input type="number" step="any" name="moving_avg_3"><br>
-
-            <input type="submit" value="Predict">
+            <input type="submit" value="Predict 🔮">
         </form>
 
         {% if prediction is not none %}
-            <h2>Predicted Power Demand: <span>{{ prediction }} kW</span></h2>
+            <div class="result">
+                <span class="emoji">🎉</span>
+                <h2>Predicted Power Demand: <span>{{ prediction }} kW</span></h2>
+            </div>
         {% endif %}
     </div>
+
+    <div class="footer">
+        <p>Made with ❤️ by YourTeam. 🌍 Keep the lights on!</p>
+    </div>
 </body>
+
 </html>

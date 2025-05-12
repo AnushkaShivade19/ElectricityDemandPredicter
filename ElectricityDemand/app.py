@@ -8,22 +8,18 @@ from huggingface_hub import hf_hub_download
 app = Flask(__name__)
 
 # 🔽 Replace this with your actual Hugging Face repo ID
-REPO_ID = "AnushkaShivade/ElectricityDemandPrediction"  # <-- Change this
+REPO_ID = "AnushkaShivade/ElectricityDemandPrediction"
 
-# 🔽 Download model and scaler from Hugging Face
+# 🔽 Download model from Hugging Face
 model_path = hf_hub_download(repo_id=REPO_ID, filename="random_forest_model.pkl")
-scaler_path = hf_hub_download(repo_id=REPO_ID, filename="scaler.pkl")
 
-# Load model and scaler
+# Load model
 model = joblib.load(model_path)
-scaler = joblib.load(scaler_path)
 
-# Features used when training
-numerical_cols = ['Power demand', 'temp', 'dwpt', 'rhum', 'wdir', 'wspd', 'pres', 'moving_avg_3']
-model_features = [
-    'temp', 'dwpt', 'rhum', 'wdir', 'wspd', 'pres', 'moving_avg_3',
-    'day_of_week', 'hour_of_day', 'month',
-    'hour_sin', 'hour_cos', 'day_sin', 'day_cos'
+# Features used during training
+features = [
+    'temp', 'dwpt', 'wspd', 'wdir', 'pres', 'rhum',
+    'year', 'month_cos', 'hour_sin', 'hour_cos'
 ]
 
 @app.route('/')
@@ -33,68 +29,38 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Parse datetime input and compute time features
+        # Parse datetime and compute cyclical time features
         dt = request.form['datetime']
         dt_obj = datetime.fromisoformat(dt)
 
         hour = dt_obj.hour
         weekday = dt_obj.weekday()
         month = dt_obj.month
+        year = dt_obj.year
 
         hour_sin = np.sin(2 * np.pi * hour / 24)
         hour_cos = np.cos(2 * np.pi * hour / 24)
-        day_sin = np.sin(2 * np.pi * weekday / 7)
-        day_cos = np.cos(2 * np.pi * weekday / 7)
+        month_cos = np.cos(2 * np.pi * month / 12)
 
-        # Get user input
-        inputs = {
-            "temp": float(request.form['temp']),
-            "dwpt": float(request.form['dwpt']),
-            "rhum": float(request.form['rhum']),
-            "wdir": float(request.form['wdir']),
-            "wspd": float(request.form['wspd']),
-            "pres": float(request.form['pres']),
-            "moving_avg_3": float(request.form['moving_avg_3']),
-            "day_of_week": weekday,
-            "hour_of_day": hour,
-            "month": month,
-            "hour_sin": hour_sin,
-            "hour_cos": hour_cos,
-            "day_sin": day_sin,
-            "day_cos": day_cos
-        }
-
-        # Full input for scaling
-        full_numeric_input = {
-            'Power demand': 0.0,
-            'temp': inputs['temp'],
-            'dwpt': inputs['dwpt'],
-            'rhum': inputs['rhum'],
-            'wdir': inputs['wdir'],
-            'wspd': inputs['wspd'],
-            'pres': inputs['pres'],
-            'moving_avg_3': inputs['moving_avg_3']
-        }
-
-        # Scale numeric features
-        scaled_full = scaler.transform(pd.DataFrame([full_numeric_input]))
-        scaled_features = list(scaled_full[0][1:])  # exclude 'Power demand'
-
-        # Final input to model
-        final_input = scaled_features + [
-            inputs['day_of_week'], inputs['hour_of_day'], inputs['month'],
-            inputs['hour_sin'], inputs['hour_cos'], inputs['day_sin'], inputs['day_cos']
+        # Collect input features
+        final_input = [
+            float(request.form['temp']),
+            float(request.form['dwpt']),
+            float(request.form['wspd']),
+            float(request.form['wdir']),
+            float(request.form['pres']),
+            float(request.form['rhum']),
+            year,
+            month_cos,
+            hour_sin,
+            hour_cos
         ]
 
-        df_input_final = pd.DataFrame([final_input], columns=model_features)
-        y_scaled = model.predict(df_input_final)[0]
+        # Predict
+        df_input = pd.DataFrame([final_input], columns=features)
+        prediction = model.predict(df_input)[0]
 
-        # Inverse transform to get actual value
-        inverse = np.zeros((1, len(numerical_cols)))
-        inverse[0][0] = y_scaled
-        y_actual = scaler.inverse_transform(inverse)[0][0]
-
-        return render_template('index.html', prediction=round(y_actual, 2))
+        return render_template('index.html', prediction=round(prediction, 2))
 
     except Exception as e:
         return render_template('index.html', prediction=f"Error: {str(e)}")
